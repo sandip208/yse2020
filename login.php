@@ -20,18 +20,21 @@
  * ②ログインボタンが押されたかを判定する。
  * 押されていた場合はif文の中の処理を行う
  */
-if ( isset($_post['decision']) && $_post['decision']==1){
-	$name = $_post('name');
-	$pass = $post('pass');
+if ( isset($_POST['decision']) && $_POST['decision']==1){
+	$name = $_POST['name'];
+	$pass = $_POST['pass'];
 	/*
 	 * ③名前とパスワードが両方とも入力されているかを判定する。
 	 * 入力されていた場合はif文の中の処理を行う。
 	 */
-	// if (/* ③の処理を書く */) {
+	 if (!empty($_POST['name']) && !empty($_POST['pass'])){
+	$name = $_POST['name'];
+	$pass = $_POST['pass'];
 	// 	//④名前とパスワードにPOSTで送られてきた名前とパスワードを設定する
-	// } else {
+	 } else {
+		 $errmsg ='名前かパスワードが未入力です';
 	// 	//⑤名前かパスワードが入力されていない場合は、「名前かパスワードが未入力です」という文言をメッセージを入れる変数に設定する
-	// }
+	 }
 }
 
 //⑦名前が入力されているか判定する。入力されていた場合はif文の中に入る
