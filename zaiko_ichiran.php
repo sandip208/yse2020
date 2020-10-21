@@ -13,7 +13,7 @@
 */
 
 //①セッションを開始する
-
+session_start();
 //②SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
 // if (/* ②の処理を書く */){
 // 	//③SESSIONの「error2」に「ログインしてください」と設定する。
@@ -102,7 +102,7 @@ $query=$pdo->query($sql);
 					<tbody>
 						<?php
 						//⑩SQLの実行結果の変数から1レコードのデータを取り出す。レコードがない場合はループを終了する。
-						while(/* ⑩の処理を書く */$extract=$query->fetch()){
+						while(/* ⑩の処理を書く */$extract=$query->fetch(PDO::FETCH_ASSOC)){
 							//⑪extract変数を使用し、1レコードのデータを渡す。
 
 							echo "<tr>";
