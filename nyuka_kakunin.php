@@ -9,10 +9,10 @@
 */
 
 //①セッションを開始する
-if(session_status() === PHP_SESSION_NONE) {
+// if(session_status() === PHP_SESSION_NONE) {
 	//②セッションを開始する
    session_start();
-}
+// }
 function getByid($id,$con){
 	/* 
 	 * ②書籍を取得するSQLを作成する実行する。
@@ -29,13 +29,11 @@ function getByid($id,$con){
 }
 
 function updateByid($id,$con,$total){
-	/*
-	 * ④書籍情報の在庫数を更新するSQLを実行する。
-	 * 
-	 * 引数で受け取った$totalの値で在庫数を上書く。
-	 * その際にWHERE句でメソッドの引数に$idに一致する書籍のみ取得する。
-	 */
-	
+		// ④書籍情報の在庫数を更新するSQLを実行する。
+		$updateQuery_byId = "UPDATE books SET stock = {$total} WHERE id = {$id}";
+		// 引数で受け取った$totalの値で在庫数を上書く。
+		// その際にWHERE句でメソッドの引数に$idに一致する書籍のみ取得する。
+		return $updateQuery_byId;
 	
 }
 
@@ -62,6 +60,7 @@ try {
 
 
 //⑩書籍数をカウントするための変数を宣言し、値を0で初期化する
+$index = 0;
 
 //⑪POSTの「books」から値を取得し、変数に設定する。
 foreach($_POST['books'] as $index => $book_id){
