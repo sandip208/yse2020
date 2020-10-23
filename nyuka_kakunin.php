@@ -9,12 +9,21 @@
 */
 
 //①セッションを開始する
+if(session_status() === PHP_SESSION_NONE) {
+	//②セッションを開始する
+   session_start();
+}
 function getByid($id,$con){
 	/* 
 	 * ②書籍を取得するSQLを作成する実行する。
 	 * その際にWHERE句でメソッドの引数の$idに一致する書籍のみ取得する。
 	 * SQLの実行結果を変数に保存する。
 	 */
+	$sql = "SELECT * FROM books WHERE id = {$id}";
+	$query = $con->query($sql);
+	$row = $query->fetch(PDO::FETCH_ASSOC);
+
+	return $row;
 
 	//③実行した結果から1レコード取得し、returnで値を返す。
 }
@@ -22,9 +31,12 @@ function getByid($id,$con){
 function updateByid($id,$con,$total){
 	/*
 	 * ④書籍情報の在庫数を更新するSQLを実行する。
+	 * 
 	 * 引数で受け取った$totalの値で在庫数を上書く。
 	 * その際にWHERE句でメソッドの引数に$idに一致する書籍のみ取得する。
 	 */
+	
+	
 }
 
 // //⑤SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
@@ -124,19 +136,20 @@ foreach($_POST['books'] as $index => $book_id){
 						//㉜書籍数をカウントするための変数を宣言し、値を0で初期化する。
 
 						//㉝POSTの「books」から値を取得し、変数に設定する。
-						// foreach(/* ㉝の処理を書く */){
+						foreach($_POST['books'] as $book_id){
 							//㉞「getByid」関数を呼び出し、変数に戻り値を入れる。その際引数に㉜の処理で取得した値と⑧のDBの接続情報を渡す。
+							$book = getByID($book_id, $pdo);
 						?>
 						<tr>
-							<td><?php //echo	/* ㉟ ㉞で取得した書籍情報からtitleを表示する。 */;?></td>
-							<td><?php //echo	/* ㊱ ㉞で取得した書籍情報からstockを表示する。 */;?></td>
+							<td><?php echo	/* ㉟ ㉞で取得した書籍情報からtitleを表示する。 */$book['title'];?></td>
+							<td><?php echo	/* ㊱ ㉞で取得した書籍情報からstockを表示する。 */$book['stock'];?></td>
 							<td><?php //echo	/* ㊱ POSTの「stock」に設定されている値を㉜の変数を使用して呼び出す。 */;?></td>
 						</tr>
 						<input type="hidden" name="books[]" value="<?php //echo /* ㊲ ㉝で取得した値を設定する */; ?>">
 						<input type="hidden" name="stock[]" value='<?php //echo /* ㊳POSTの「stock」に設定されている値を㉜の変数を使用して設定する。 */;?>'>
 						<?php
 							//㊴ ㉜で宣言した変数をインクリメントで値を1増やす。
-						// }
+						}
 						?>
 					</tbody>
 				</table>
