@@ -74,13 +74,14 @@ foreach(/* ⑪の処理を書く */){
 if(/* ㉓の処理を書く */){
 	//㉔書籍数をカウントするための変数を宣言し、値を0で初期化する。
 
+	
 	//㉕POSTの「books」から値を取得し、変数に設定する。
-	foreach(/* ㉕の処理を書く */){
-		//㉖「getByid」関数を呼び出し、変数に戻り値を入れる。その際引数に㉕の処理で取得した値と⑧のDBの接続情報を渡す。
-		//㉗ ㉖で取得した書籍の情報の「stock」と、㉔の変数を元にPOSTの「stock」から値を取り出して書籍情報の「stock」から値を引いた値を変数に保存する。
-		//㉘「updateByid」関数を呼び出す。その際に引数に㉕の処理で取得した値と⑧のDBの接続情報と㉗で計算した値を渡す。
-		//㉙ ㉔で宣言した変数をインクリメントで値を1増やす。
-	}
+	// foreach(/* ㉕の処理を書く */){
+	// 	//㉖「getByid」関数を呼び出し、変数に戻り値を入れる。その際引数に㉕の処理で取得した値と⑧のDBの接続情報を渡す。
+	// 	//㉗ ㉖で取得した書籍の情報の「stock」と、㉔の変数を元にPOSTの「stock」から値を取り出して書籍情報の「stock」から値を引いた値を変数に保存する。
+	// 	//㉘「updateByid」関数を呼び出す。その際に引数に㉕の処理で取得した値と⑧のDBの接続情報と㉗で計算した値を渡す。
+	// 	//㉙ ㉔で宣言した変数をインクリメントで値を1増やす。
+	// }
 
 	//㉚SESSIONの「success」に「入荷が完了しました」と設定する。
 	//㉛「header」関数を使用して在庫一覧画面へ遷移する。
@@ -112,19 +113,23 @@ if(/* ㉓の処理を書く */){
 					<?php 
 					//㉜書籍数をカウントするための変数を宣言し、値を0で初期化する。
 
+					$index = 0;
 					//㉝POSTの「books」から値を取得し、変数に設定する。
-					foreach(/* ㉝の処理を書く */){
+					foreach($_POST['books'] as $book_id){
 						//㉞「getByid」関数を呼び出し、変数に戻り値を入れる。その際引数に㉜の処理で取得した値と⑧のDBの接続情報を渡す。
+						$book = getByid($book_id, $pdo);
+						$stock = $_POST['stock'][$index];
 					?>
 					<tr>
-						<td><?php echo	/* ㉟ ㉞で取得した書籍情報からtitleを表示する。 */;?></td>
-						<td><?php echo	/* ㊱ ㉞で取得した書籍情報からstockを表示する。 */;?></td>
-						<td><?php echo	/* ㊲ POSTの「stock」に設定されている値を㉜の変数を使用して呼び出す。 */;?></td>
+						<td><?php echo	/* ㉟ ㉞で取得した書籍情報からtitleを表示する。 */$book['title'];?></td>
+						<td><?php echo	/* ㊱ ㉞で取得した書籍情報からstockを表示する。 */$book['stock'];?></td>
+						<td><?php echo	/* ㊲ POSTの「stock」に設定されている値を㉜の変数を使用して呼び出す。 */$stock;?></td>
 					</tr>
-					<input type="hidden" name="books[]" value="<?php echo /* ㊳ ㉝で取得した値を設定する */;?>">
-					<input type="hidden" name="stock[]" value='<?php echo /* ㊴「POSTの「stock」に設定されている値を㉜の変数を使用して設定する。 */;?>'>
+					<input type="hidden" name="books[]" value="<?php echo /* ㊳ ㉝で取得した値を設定する */$book['id'];?>">
+					<input type="hidden" name="stock[]" value='<?php echo /* ㊴「POSTの「stock」に設定されている値を㉜の変数を使用して設定する。 */$stock;?>'>
 					<?php
 						//㊵ ㉜で宣言した変数をインクリメントで値を1増やす。
+						$index++;
 					}
 					?>
 				</tbody>
