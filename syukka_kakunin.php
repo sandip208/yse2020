@@ -28,10 +28,13 @@ function getByid($id,$con){
 
 function updateByid($id,$con,$total){
 	// ④書籍情報の在庫数を更新するSQLを実行する。
-	$updateQuery_byId = "UPDATE books SET stock = {$total} WHERE id = {$id}";
+	if ($id > 0){
+	$sql = "UPDATE books SET stock = {$total} WHERE id = {$id}";
+	$con->query($sql);
+	}
 	// 引数で受け取った$totalの値で在庫数を上書く。
 	// その際にWHERE句でメソッドの引数に$idに一致する書籍のみ取得する。
-	return $updateQuery_byId;
+	
 
 }
 
