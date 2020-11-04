@@ -123,8 +123,10 @@ if(isset($_POST['add'])&& $_POST['add']=='ok'){
 	}
 	
 // 	//㉚SESSIONの「success」に「入荷が完了しました」と設定する。
-// 	//㉛「header」関数を使用して在庫一覧画面へ遷移する。
-}
+     $_SESSION['success']='入荷が完了しました';
+//㉛「header」関数を使用して在庫一覧画面へ遷移する。
+     header('location:zaiko_ichiran.php');
+     }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
