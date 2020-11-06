@@ -18,7 +18,6 @@ session_start();
 	$name='';
 	$pass='';
 	$errmsg = "";
-    $msg = "";
 /*
  * ②ログインボタンが押されたかを判定する。
  * 押されていた場合はif文の中の処理を行う
@@ -79,7 +78,7 @@ if (isset($_SESSION["error2"])) {
 		echo "<div id='error'>".$errmsg . "</div>";
 		
 		//⑯メッセージの変数に入っている値を表示する
-		echo "<div id='msg'>", /* ⑯の変数を書く */$msg,"</div>";
+		echo "<div id='msg'>", /* ⑯の変数を書く */$errmsg,"</div>";
 		?>
 		<form action="login.php" method="post" id="log">
 			<p>

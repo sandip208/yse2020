@@ -15,11 +15,12 @@
 //①セッションを開始する
 session_start();
  session_regenerate_id(True);
-//②SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
-// if (/* ②の処理を書く */){
-// 	//③SESSIONの「error2」に「ログインしてください」と設定する。
-// 	//④ログイン画面へ遷移する。
-// }
+ if (/* ②の処理を書く */!$_SESSION['login']){
+	//③SESSIONの「error2」に「ログインしてください」と設定する。
+	$_SESSION['error2']="ログインしてください";
+	//④ログイン画面へ遷移する。
+	header('location:login.php');
+}
 
 //⑤データベースへ接続し、接続情報を変数に保存する
 $db_name = 'zaiko2020_yse';
