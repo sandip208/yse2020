@@ -6,26 +6,28 @@
 書籍テーブルより書籍情報を取得し、画面に表示する。
 商品をチェックし、ボタンを押すことで入荷、出荷が行える。
 ログアウトボタン押下時に、セッション情報を削除しログイン画面に遷移する。
-
 【エラー一覧（エラー表示：発生条件）】
 入荷する商品が選択されていません：商品が一つも選択されていない状態で入荷ボタンを押す
 出荷する商品が選択されていません：商品が一つも選択されていない状態で出荷ボタンを押す
 */
 
 //①セッションを開始する
+
+
+
 session_start();
- session_regenerate_id(True);
-//②SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
-// if (/* ②の処理を書く */){
-// 	//③SESSIONの「error2」に「ログインしてください」と設定する。
-// 	//④ログイン画面へ遷移する。
-// }
+session_regenerate_id(True);
+
+
+//②SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。//
+if (/* ②の処理を書く */!$_SESSION['login']){
+	//③SESSIONの「error2」に「ログインしてください」と設定する。
+	$_SESSION['error2']="ログインしてください";
+	//④ログイン画面へ遷移する。
+	header('location:login.php');
+}
 
 //⑤データベースへ接続し、接続情報を変数に保存する
-$db_name = 'zaiko2020_yse';
-$host = 'localhost';
-$user_name = 'zaiko2020_yse';
-$password = '2020zaiko';
 
 //⑥データベースで使用する文字コードを「UTF8」にする
 $db_name="zaiko2020_yse";
@@ -35,15 +37,15 @@ $password='2020zaiko';
 $dsn = "mysql:dbname={$db_name};host={$host};charset=utf8";
 try {
 	$pdo = new PDO($dsn, $user_name, $password);    
-} catch (PDOException $e) {  
-	echo 'db connect error';
+	
+} catch (PDOException $e) {   
     exit;
 }
-
 
 //⑦書籍テーブルから書籍情報を取得するSQLを実行する。また実行結果を変数に保存する
 $sql='SELECT * FROM books;';
 $query=$pdo->query($sql);
+
 
 ?>
 <!DOCTYPE html>
@@ -66,8 +68,7 @@ $query=$pdo->query($sql);
 				 * ⑧SESSIONの「success」にメッセージが設定されているかを判定する。
 				 * 設定されていた場合はif文の中に入る。
 				 */ 
-				if(isset($_SESSION['success'])) {
-					
+				if(/* ⑧の処理を書く */isset($_SESSION['success'])){
 					//⑨SESSIONの「success」の中身を表示する。
 					echo $_SESSION['success'];
 				}
@@ -105,7 +106,7 @@ $query=$pdo->query($sql);
 					<tbody>
 						<?php
 						//⑩SQLの実行結果の変数から1レコードのデータを取り出す。レコードがない場合はループを終了する。
-						while(/* ⑩の処理を書く */$extract=$query->fetch(PDO::FETCH_ASSOC)){
+						while(/* ⑩の処理を書く */$extract=$query->fetch()){
 							//⑪extract変数を使用し、1レコードのデータを渡す。
 
 							echo "<tr>";
