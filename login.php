@@ -17,6 +17,7 @@ session_start();
 //①名前とパスワードを入れる変数を初期化する
 	$name='';
 	$pass='';
+	$errmsg = "";
 /*
  * ②ログインボタンが押されたかを判定する。
  * 押されていた場合はif文の中の処理を行う
@@ -74,10 +75,10 @@ if (isset($_SESSION["error2"])) {
 		<h1>ログイン</h1>
 		<?php
 		//⑮エラーメッセージの変数に入っている値を表示する
-		echo "<div id='error'>",$errmsg, "</div>";
+		echo "<div id='error'>".$errmsg . "</div>";
 		
 		//⑯メッセージの変数に入っている値を表示する
-		echo "<div id='msg'>", /* ⑯の変数を書く */"</div>";
+		echo "<div id='msg'>", /* ⑯の変数を書く */$errmsg,"</div>";
 		?>
 		<form action="login.php" method="post" id="log">
 			<p>
