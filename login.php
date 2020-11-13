@@ -55,12 +55,12 @@ if (!empty($name) && !empty($pass)) {
 }
 
 //⑫SESSIONの「error2」に値が入っているか判定する。入っていた場合はif文の中に入る
-$_SESSION["error2"] = "";
 if (isset($_SESSION["error2"])) {
 	//⑬SESSIONの「error2」の値をエラーメッセージを入れる変数に設定する。
-	$_SESSION["error2"] ="エラーメッセージ";
+	$errmsg = $_SESSION["error2"];
 	//⑭SESSIONの「error2」にnullを入れる。
 	$_SESSION["error2"] = null;
+	//var_dump($errmsg);
 }
 ?>
 <!DOCTYPE html>
@@ -78,7 +78,7 @@ if (isset($_SESSION["error2"])) {
 		echo "<div id='error'>".$errmsg . "</div>";
 		
 		//⑯メッセージの変数に入っている値を表示する
-		echo "<div id='msg'>", /* ⑯の変数を書く */$errmsg,"</div>";
+		// echo "<div id='msg'>", /* ⑯の変数を書く */$errmsg,"</div>";
 		?>
 		<form action="login.php" method="post" id="log">
 			<p>
