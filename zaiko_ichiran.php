@@ -85,7 +85,9 @@ $query=$pdo->query($sql);
 				</p>
 				<button type="submit" id="btn1" formmethod="POST" name="decision" value="3" formaction="nyuka.php">入荷</button>
 
-				<button type="submit" id="btn1" formmethod="POST" name="decision" value="4" formaction="syukka.php">出荷</button>
+				<button type="submit" id="btn1" formmethod="POST" name="decision" value="4" formaction="syukka.php">出荷</button>]
+
+				<a href="new_product.php" id="btn1">新商品追加</a>
 			</div>
 			<!-- 中央表示 -->
 			<div id="center">
