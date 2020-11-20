@@ -48,6 +48,9 @@ if (/* ③の処理を書く */!$_SESSION['login']){
 	header('location:login.php');
 }
 
+if($_POST['books']){
+	header('location:zaiko_ichiran.php');
+}
 //⑧データベースへ接続し、接続情報を変数に保存する
 
 //⑨データベースで使用する文字コードを「UTF8」にする
