@@ -17,24 +17,29 @@ try {
 
 function getBook($id, $con)
 {
-    $sql = "SELECT * FROM books WHERE id = {$id};";
+    $sql = "SELECT * FROM books WHERE id= {$id};";
     $row = $con->query($sql)->fetch(PDO::FETCH_ASSOC);
     return $row;
 }
 
-function deleteBook($data, $con)
+function deleteBook($book_id, $con)
 {
-    $sql = "UPDATE books SET is_delete = true";
+    $sql = "UPDATE books SET is_delete = true WHERE id = {$book_id};";
     $result = $con->query($sql);
     if (!$result) {
         $_SESSION['error'] = '更新に失敗しました。';
     } else {
         $_SESSION['error'] = '';
+        header('Location: zaiko_ichiran.php');
     }
 }
 
 if (isset($_POST['delete']) && $_POST['delete'] == 'ok') {
-    // echo 'delete';
+    if (isset($_POST['books'])) {
+        foreach ($_POST['books'] as $book_id) {
+            deleteBook($book_id, $pdo);
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
